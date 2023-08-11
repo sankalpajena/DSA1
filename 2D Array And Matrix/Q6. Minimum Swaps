@@ -1,0 +1,33 @@
+public class Solution {
+    public int solve(int[] A, int B) {
+        int n = A.length;
+        //Calculate the valid number of counts
+        int valid_counts = 0;
+        for(int i = 0 ; i < n ; i++){
+            if(A[i] <= B) {
+                valid_counts++;
+            }
+        }
+        //Calculate Bad counts(greater then B)
+        int Bad_Counts = 0;
+        for(int i = 0 ; i < valid_counts ; i++){
+            if(A[i] > B){
+                Bad_Counts++;
+            }
+        }
+        int Min_Swap = Bad_Counts;
+        //Perform slidng window
+        for(int i = 0 ,  j = valid_counts ; j < n ; i++ , j++){
+            //If greater number are deleting from the window
+            if(A[i] > B){
+                Bad_Counts--;
+            }
+            //If greater number are adding to the window
+            if(A[j] > B){
+                Bad_Counts++;
+            }
+            Min_Swap = Math.min(Min_Swap , Bad_Counts);
+        } 
+        return Min_Swap;
+    }
+}
