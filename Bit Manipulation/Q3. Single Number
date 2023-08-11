@@ -1,0 +1,11 @@
+public class Solution {
+    // DO NOT MODIFY THE LIST. IT IS READ ONLY
+    public int singleNumber(final List<Integer> A) {
+        int ans = 0;
+        //Perform Xor operation when ever even case is given in the question
+        for(int index = 0 ; index < A.size() ; index ++){
+            ans = ans ^ A.get(index);
+        }
+        return ans;
+    }
+}
