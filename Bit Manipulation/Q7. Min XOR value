@@ -1,0 +1,14 @@
+public class Solution {
+    public int findMinXor(int[] A) {
+        Arrays.sort(A);
+        int n = A.length;
+        int Ans = Integer.MAX_VALUE;
+        
+        for(int i = 1 ; i < n ; i++){
+            int Xor = 0;
+            Xor = A[i] ^ A[i - 1];
+            Ans = Math.min(Ans , Xor);
+        }
+        return Ans;
+    }
+}
