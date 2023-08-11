@@ -1,0 +1,41 @@
+public class Solution {
+    public int[] flip(String A) {
+        
+    int count = 0; // Variable to keep track of the difference between 0s and 1s
+    int l = 0; // Variable to track the start index of the range with maximum difference
+    int r = 0; // Variable to track the end index of the range with maximum difference
+    int max = 0; // Variable to store the maximum difference
+    
+    int[] res = new int[2]; // Array to store the result range
+    res[0] = l; // Initialize the start index of the result range
+    res[1] = r; // Initialize the end index of the result range
+    
+    for (int i = 0; i < A.length(); i++) {
+        if (A.charAt(i) == '0') {
+            count++; // Increment count if the current character is '0'
+        } else {
+            count--; // Decrement count if the current character is '1'
+        }
+        
+        if (count > max) {
+            max = count; // Update max if count is greater than the current max difference
+            res[0] = l + 1; // Update the start index of the result range
+            res[1] = r + 1; // Update the end index of the result range
+        }
+        
+        if (count < 0) {
+            l = i + 1; // Reset the start index if count becomes negative
+            r = i + 1; // Reset the end index if count becomes negative
+            count = 0; // Reset count to 0
+        } else {
+            r++; // Increment the end index if count is non-negative
+        }
+    }
+    
+    if (max == 0) {
+        return new int[0]; // If max difference is 0, return an empty array as no operations are required
+    }
+    
+    return res; // Return the result range
+}
+}
