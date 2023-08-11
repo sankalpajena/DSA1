@@ -1,0 +1,33 @@
+
+public class Solution {
+    //Checking for the checkbits 
+     public boolean checkBits(int num, int pos)
+    {
+        return ((num >> pos) & 1) == 1;
+    }
+    // Iterate every bit of the index and check for 1 because we need max and ,
+    // If we eccounter any 0 then we will make that as zero as its not neccessary 
+    // and like that in each index we calculate the 2 power and store that in the answer
+    public int solve(ArrayList<Integer> A) {
+        int ans = 0;
+        for (int bit = 31; bit >= 0; bit--) {
+            int sum = 0;
+            for (int index = 0; index < A.size(); index++) {
+                if (checkBits(A.get(index), bit)) {
+                    sum++;
+                }
+            }
+            if (sum >= 2) {
+                ans += (1 << bit); // Convert Math.pow(2, bit) to (1 << bit)
+                for (int j = 0; j < A.size(); j++) {
+                    //Disqualifiying the zero index
+                    if (!checkBits(A.get(j), bit)) {
+                        A.set(j, 0); // Use A.set(j, 0) to update the value at index j
+                    }
+                }
+            }
+        }
+
+        return ans;
+    }
+}
