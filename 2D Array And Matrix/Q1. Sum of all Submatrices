@@ -1,0 +1,20 @@
+public class Solution {
+    public int solve(int[][] A) {
+        int n = A.length;
+        int Total_sum = 0;
+        int sub_matrices = 1;
+
+        for(int i = 0 ; i < n ; i++){
+            for(int j = 0 ; j < n ; j++){
+
+                //Calculate the # submatrices include the currene elementA[i][j]
+                 sub_matrices = (i + 1) * (j + 1) * (n - i)*(n-j);
+
+                //Update the totalsum by adding contribution of the current element
+                 Total_sum += sub_matrices * A[i][j];
+            }
+        }
+        return Total_sum;
+
+    }
+}
