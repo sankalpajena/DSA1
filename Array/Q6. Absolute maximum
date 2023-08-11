@@ -1,0 +1,36 @@
+public class Solution {
+    public int solve(int[] A, int[] B, int[] C, int[] D) {
+        int[] max = new int[16];
+        int[] min = new int[16];
+
+        for (int i = 0; i < 16; i++) {
+            max[i] = Integer.MIN_VALUE;
+            min[i] = Integer.MAX_VALUE;
+        }
+
+        int sum = 0;
+        for (int i = 0; i < A.length; i++) {
+            for (int j = 15; j >= 0; j--) {
+                sum = A[i];
+                sum += (isBitSet(j, 3) ? B[i] : -B[i]);
+                sum += (isBitSet(j, 2) ? C[i] : -C[i]);
+                sum += (isBitSet(j, 1) ? D[i] : -D[i]);
+                sum += (isBitSet(j, 0) ? i : -i);
+
+                max[j] = (int) Math.max(max[j], sum);
+                min[j] = (int) Math.min(min[j], sum);
+            }
+        }
+
+        int ans = Integer.MIN_VALUE;
+        for (int i = 0; i < 16; i++) {
+            ans = (int) Math.max(ans, max[i] - min[i]);
+        }
+
+        return ans;
+    }
+
+    private boolean isBitSet(int i, int pos) {
+        return ((i & (1 << pos)) > 0);
+    }
+}
