@@ -1,0 +1,33 @@
+public class Solution {
+    public int[] solve(int A, int[][] B) {
+         int[] res = new int[A + 1];
+        int n = B.length;
+
+        for (int i = 0; i < n; i++) {
+            int ind1 = B[i][0];
+            int ind2 = B[i][1];
+            int val = B[i][2];
+
+            res[ind1 ] += val;
+
+            if (ind2 + 1 < A + 1) { 
+                res[ind2 + 1] -= val;
+            }
+        }
+
+        // Perform the prefix sum update on res only once
+        
+        for (int j = 1; j < A + 1 ; j++) {
+            res[j] = res[j - 1] + res[j];
+        }
+
+        //res array is 6 sized and the first size is 0 as we increse the size of array 
+        //So we have to create a new array and store the element from 1 index of res not from 0
+        int [] newRes = new int [res.length - 1];
+        for(int i = 1 ; i < res.length ; i++){
+            newRes[i-1] = res[i];
+        }
+
+        return newRes;
+    }
+}
