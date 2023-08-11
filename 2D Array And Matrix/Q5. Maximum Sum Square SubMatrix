@@ -1,0 +1,36 @@
+public class Solution {
+    public int solve(int[][] A, int B) {
+        int N = A.length;
+      
+        int [][] arr = new int[N - B + 1][N];
+        //First calculate sliding window on row 
+       
+        for(int col = 0; col < N ; col++){
+            int sum = 0;
+            for(int row = 0 ; row < B ; row++){
+                sum += A[row][col];
+            }
+            arr[0][col] = sum;
+            //sliding the window
+            for(int row = B ; row < N ; row++){
+                sum = sum + A[row][col] - A[row - B][col];
+                arr[row - B + 1][col] = sum;
+            }
+        }
+         //THen calculate on col ans store the answer
+         int Ans = Integer.MIN_VALUE;
+         for(int row = 0 ; row < N - B + 1 ; row++){
+             int res = 0;
+             for(int col = 0 ; col < B ; col++){
+                 res += arr[row][col];
+             }
+             Ans = Math.max(Ans , res);
+             //sliding the window
+             for(int col = B ; col < N ; col++){
+                 res = res + arr[row][col] - arr[row][col - B];
+                 Ans = Math.max(res , Ans);
+             }
+         }
+        return Ans;
+    }
+}
