@@ -1,0 +1,40 @@
+public class Solution {
+     public int solve(int[][] A, int B) {
+        int n = A.length;
+        int m = A[0].length;
+
+        int i = n-1, j = 0;
+        int row = 0;
+        int col = 0;
+        boolean isExist = false;
+
+        while(i >= 0 && j < m) {
+            if(A[i][j] == B) {
+                row = i;
+                col = j;
+                isExist = true;
+                i--;
+            }
+            else if(A[i][j] < B) {
+                j++;
+            }
+            else {
+                i--;
+            }
+        }
+
+        if(isExist) {
+            return (row+1) * 1009 + (col+1);
+        }
+
+        return -1;
+
+    }
+
+}
+
+
+
+
+
+
