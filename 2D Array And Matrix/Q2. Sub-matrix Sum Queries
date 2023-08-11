@@ -1,0 +1,55 @@
+public class Solution {
+    public int[] solve(int[][] A, int[] B, int[] C, int[] D, int[] E) {
+        int Ans [] = new int [B.length];
+        int mod = 1000000007;
+        int sum = 0;
+
+        //Build prefix matrix so that we can calculate for multiple queries
+        //Row wise sum
+       for(int i =0; i<A.length; i++){
+            for(int j =0; j<A[0].length; j++){
+                if(j!=0){
+                    A[i][j] =(A[i][j] + A[i][j-1])%mod;
+                }
+            }
+        }
+        //Col wise sum
+         for(int j =0; j<A[0].length; j++){
+            for(int i =0; i<A.length; i++){
+                if(i!=0){
+                    A[i][j] =(A[i][j] + A[i-1][j])%mod;
+                }
+            }
+        }
+
+
+        for(int i = 0 ; i < B.length ; i++){
+            int i1 = B[i] - 1;
+            int j1 = C[i] - 1;
+            int i2 = D[i] - 1;
+            int j2 = E[i] - 1;
+
+            sum = A[i2][j2];
+
+            //COrner case if the element is not in the query then it will delete twice 
+            //As it will be present in both
+            if(i1 > 0 && j1 > 0){
+                sum = (sum + A[i1 - 1][j1 - 1]) % mod;
+            }
+            //Delete left side unwanted submatrix
+            if(j1 > 0){
+                sum = (sum - A[i2][j1 - 1])  % mod;
+            }
+            //Delete right side unwanted submatrix
+            if(i1 > 0){
+                sum = (sum - A[i1-1][j2])  % mod;
+            }
+            if(sum < 0){
+                sum += mod;
+            }
+            Ans[i] = sum;
+        }
+        return Ans;
+        
+    }
+}
