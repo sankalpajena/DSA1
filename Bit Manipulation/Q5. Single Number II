@@ -1,0 +1,26 @@
+public class Solution {
+    // DO NOT MODIFY THE LIST. IT IS READ ONLY
+   public boolean CheckBits(int num, int pos)
+    {
+        return ((num >> pos) & 1) == 1;
+    }
+    
+    public int singleNumber(final List<Integer> A) {
+        int ans = 0;
+        
+        for(int bit = 0 ; bit <= 31 ; bit++){
+            int sum = 0;
+            //Calculate sum of the set bits 
+            //On all number i  the ith number of index
+            for(int index = 0 ; index < A.size() ; index++ ){
+                if(CheckBits(A.get(index) , bit)){
+                    sum++;
+                }
+            }
+            if(sum % 3 > 0){
+                ans += (1 << bit);
+            }
+        }
+        return ans;
+    }
+}
