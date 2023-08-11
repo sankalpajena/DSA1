@@ -1,0 +1,28 @@
+public class Solution {
+    
+    public int firstMissingPositive(int[] A) {
+        int n = A.length;
+        
+        //Iterate the array and check if the element is present in the right 
+        //Position or not by comparing with the index
+        for(int index = 0 ; index < n ; index++){
+            while(A[index] != index + 1 && A[index] > 0 && A[index] <= n && A[index] != A[A[index] - 1]){ 
+                int temp = A[index];
+                A[index] = A[A[index] - 1];
+                A[temp - 1] = temp;
+            }
+        }
+        //Iterate the array and check again the postion of element 
+        //And return the element which is not present in the respective index
+        for(int index = 0 ; index < n ; index++){
+            if(A[index] != index + 1){
+                return index + 1;
+            }
+        
+        }
+        //If all the element is present in correct index then return the next possible element
+        return n + 1;
+    }
+}
+
+
