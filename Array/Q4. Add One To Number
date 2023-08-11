@@ -1,0 +1,37 @@
+public class Solution {
+    public int[] plusOne(int[] A) {
+        int n = A.length;
+        //FInd the # zeros before the starting element
+        int CountZeros = 0;
+        for(int i = 0 ; i < n ; i++){
+            if(A[i] > 0){
+                break;
+            }
+            else{
+                CountZeros++;
+            }
+        }
+
+        //Iterate from the end
+        int i = n - 1;
+        while(i >= CountZeros){
+            A[i] += 1;
+            //If the last element after adding 1 is less than 9 then simply add and return
+            if(A[i] <= 9){
+                return Arrays.copyOfRange(A , CountZeros , n);
+            }
+            //If the last element after adding 1 is greater then 9 make the last element 0 
+            //Ans continously add 1 to the previous element
+            else{
+                A[i] = 0;
+                i--;
+            }
+        }
+        //if the loop is end then the array must be like [9,9,9,9,9....]
+        // in this case just make all the element 0 and make the first element 1
+        int [] Ans = new int [n + 1 - CountZeros];
+        Arrays.fill(Ans,0);
+        Ans[0] = 1;
+        return Ans;
+    }
+}
