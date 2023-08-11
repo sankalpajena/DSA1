@@ -1,0 +1,33 @@
+public class Solution {
+    public long solve(int[][] A) {
+        int M = A.length - 1;
+        int N = A[0].length - 1;
+
+        long[][] temp = new long[M+1][N+1];
+        long Max = Long.MIN_VALUE;
+
+        //Calculate suffix sum both row wise and column wise from bottom to top 
+        //Store the max value and update that
+        //Handle corner case in between
+        for(int i = M ; i > -1 ; i--){
+            for(int j = N ; j > -1 ; j--){
+                temp[i][j] = A[i][j];
+
+                if(j + 1 <= N) {
+                    temp[i][j] += temp[i][j+1];
+                }
+                if(i + 1 <= M) {
+                    temp[i][j] += temp[i+1][j];
+                }
+                
+                //Corner case
+                if(i + 1 <= M && j + 1 <= N){
+                    temp[i][j] -= temp[i+1][j+1];
+                }
+
+                Max = Math.max(temp[i][j] , Max);
+            }
+        }
+        return Max;
+    }
+}
