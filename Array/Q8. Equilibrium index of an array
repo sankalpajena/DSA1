@@ -1,0 +1,33 @@
+public class Solution {
+    public int solve(int[] A) {
+        int n = A.length;
+        int LeftSum = 0;
+        int RightSum = 0;
+        int[] pf = new int[n];
+        int[] sf = new int[n];
+
+        // Step1: Build PrefixSum 
+        pf[0] = A[0];
+        for(int i = 1 ; i < n ; i++) {
+            pf[i] = pf[i-1] + A[i];
+        }
+
+         // Step1: Build suffixSum 
+         sf[n-1] = A[n-1];
+         for(int i = n -2 ; i >= 0 ; i--){
+             sf[i] = sf[i + 1] + A[i];
+         }
+
+        for(int i = 0 ; i < n ; i++) {
+            // Step3: find LeftSum and RightSum
+            LeftSum = (i > 0) ? pf[i-1] : 0;
+            RightSum = ( i < n-1) ? sf[i+1] : 0;
+             // Step4: if LeftSum and RightSum equal return the index
+            if(LeftSum == RightSum) {
+                return i;
+            }
+
+        }
+        return -1;
+    }
+}
