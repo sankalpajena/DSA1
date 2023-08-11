@@ -1,1 +1,40 @@
-//Doubt
+public class Solution {
+    public int solve(int A) {
+        int x= 0;
+        int y = 0;
+        int pos = 0;
+        //Check for all the bits of A 
+        //for smaller greatest check for 0 after the 1
+        //for greates smaller check for 0 before the 1
+        while( A > 0){
+            if((A & 1) == 0){
+                x = x | (1 << pos);
+            }
+            pos++;
+            A = A>>1;
+        }
+        y = y | (1 << pos);
+
+        return x^y;
+
+
+        
+    }
+}
+
+// 1010 
+
+// // 0101
+
+// // 5-> 0101
+// // 4 ->0100
+// // 3 ->0011
+// // 2 ->0010
+// // 1-> 0001
+
+// // 5 -> 0101
+// // 6 -> 0110
+// // 7 -> 0111
+// // 8 -> 1000
+// // 9 -> 1001
+// // 10 ->1010
