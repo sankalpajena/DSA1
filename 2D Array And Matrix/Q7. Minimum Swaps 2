@@ -1,0 +1,23 @@
+public class Solution {
+    public int solve(int[] A) {
+        int n = A.length;
+        int Min_Swap = 0;
+        int i = 0;
+        while( i < n){
+            //if element is equal to index continue
+            if(A[i] == i) {
+                i++;
+            }
+            //if not equal then swap with the respective index till fixed
+            //And increase Min_Swap count
+            else{
+                Min_Swap++;
+                int temp = A[i];
+                A[i] = A[temp];
+                A[temp] = temp;
+        }
+        }
+        return Min_Swap;
+
+    }
+}
