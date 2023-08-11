@@ -1,0 +1,25 @@
+public class Solution {
+    public int solve(int[][] A) {
+        int n = A.length;
+        int m = A[0].length;
+        int max = Integer.MIN_VALUE;
+        int Ans = 0;
+        
+        //Iterate through the array from top to bottom
+        //store the number of 1 in count and compare with max
+        //Store the index and update id required
+        for(int i = 0 ; i < n ; i++){
+            int count = 0;
+            for(int j = 0 ; j < m ; j++){
+                if(A[i][j] == 1){
+                    count++;
+                }
+                if(max < count){
+                    max = count;
+                    Ans = i;
+                }
+            }
+        }
+        return Ans;
+    }
+}
