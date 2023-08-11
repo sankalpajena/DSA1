@@ -1,0 +1,40 @@
+public class Solution {
+    public int solve(int[] A) {
+        int n = A.length;
+        int count = 0;
+        int Even_Index_sum = 0;
+        int Odd_Index_sum = 0;
+        int Even_Prefix = 0;
+        int Odd_prefix = 0;
+
+        //Caclulate Even_Index_sum & Odd_Index_sum
+        for(int i = 0 ; i < n ; i++){
+            if(i % 2 == 0){
+                Even_Index_sum += A[i];
+            }
+            else{
+                Odd_Index_sum += A[i];
+            }
+        }
+
+        //Iterate and remove the index and check if it equal or not
+        for(int i = 0 ; i < n ; i++){
+            if(i % 2 == 0){
+                Even_Index_sum = Even_Index_sum -  A[i];
+                if(Even_Index_sum + Odd_prefix == Odd_Index_sum + Even_Prefix){
+                    count++;
+                }
+                Even_Prefix += A[i];
+
+            }
+            else{
+                Odd_Index_sum = Odd_Index_sum - A[i];
+                if(Even_Index_sum + Odd_prefix == Odd_Index_sum + Even_Prefix){
+                    count++;
+                }
+                Odd_prefix += A[i];
+            }
+        }
+        return count;
+    }
+}
