@@ -1,0 +1,27 @@
+public class Solution {
+    private static void Reverse (int [] arr , int start , int end){
+        while(start < end ) {
+            int temp = arr[start];
+            arr[start] = arr[end];
+            arr[end] = temp;
+            start++;
+            end--;
+        }
+    }
+    public int[] solve(int[] A, int B) {
+        int N = A.length;
+        //IF B is larger then N then it will take tbe effective no of rotation
+        B = B % N;
+
+        //Reverse the entire array
+        Reverse(A  , 0 , N - 1);
+
+        //Reverese the first B element 
+        Reverse( A , 0 , B - 1);
+
+        //Reverse the remaining elememnt after B 
+        Reverse( A , B , N - 1);
+
+        return A;
+    }
+}
