@@ -1,0 +1,30 @@
+public class Solution {
+    public int solve(int[] A, int B) {
+        int n = A.length;
+        int res_index = 0;
+        
+        // Step 1: Find the sum of the first 'k' elements
+        int curr_sum = 0;
+        for (int i = 0; i < B; i++) {
+            curr_sum += A[i];
+        }
+        
+        // Step 2: Initialize min_sum to be equal to curr_sum
+        int min_sum = curr_sum;
+        
+        // Step 3: Start iterating from (k+1)'th to n'th element
+        for (int i = B; i < n; i++) {
+            // Step 4a: Update curr_sum by adding the current element and subtracting the element outside the window
+            curr_sum = curr_sum + A[i] - A[i - B];
+            
+            // Step 4b: Update res_index if curr_sum is less than min_sum
+            if (curr_sum < min_sum) {
+                min_sum = curr_sum;
+                res_index = (i - B + 1);
+            }
+        }
+        
+        // Step 5: Return the starting and ending indices of the subarray with the minimum sum
+        return res_index;
+    }
+}
