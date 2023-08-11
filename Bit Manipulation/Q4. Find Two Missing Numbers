@@ -1,0 +1,59 @@
+import java.util.ArrayList;
+
+public class Solution {
+    public boolean checkBit(int N, int i) {
+        if ((N & (1 << i)) != 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public ArrayList<Integer> solve(ArrayList<Integer> A) {
+        int N = A.size();
+        // Step-1: Take the XOR for all the array elements
+        int val = 0;
+        for (int i = 0; i < N; i++) {
+            val = val ^ A.get(i);
+        }
+
+        // Step-2: Take the XOR with [1,N+2] elements using for loop (Basically we are not creating extra space here)
+        for (int i = 1; i <= N + 2; i++) {
+            val = val ^ i;
+        }
+
+        // Step-3: Find the position of the set bit in the "val" by using checkBit function
+        int pos = 0;
+        for (int i = 0; i < 32; i++) {
+            if (checkBit(val, i) == true) {
+                pos = i;
+                break;
+            }
+        }
+
+        // Step-4: Check "pos" bit of every array elements and divide the on the basis of unset(0) and set(1)
+        int unset_ele = 0, set_ele = 0;
+        for (int i = 0; i < N; i++) {
+            if (checkBit(A.get(i), pos) == true) {
+                set_ele = set_ele ^ A.get(i);
+            } else {
+                unset_ele = unset_ele ^ A.get(i);
+            }
+        }
+
+        // Step-5: similarly as Step-4, do for [1,N+2] elements
+        for (int i = 1; i <= N + 2; i++) {
+            if (checkBit(i, pos) == true) {
+                set_ele = set_ele ^ i;
+            } else {
+                unset_ele = unset_ele ^ i;
+            }
+        }
+
+        ArrayList<Integer> ans = new ArrayList<>();
+        ans.add(Math.min(unset_ele, set_ele));
+        ans.add(Math.max(unset_ele, set_ele));
+
+        return ans;
+    }
+}
