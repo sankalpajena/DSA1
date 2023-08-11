@@ -1,0 +1,38 @@
+public class Solution {
+    public boolean CheckBits(int n , int pos){
+        return ((n >> pos) & 1) == 1;
+    }
+    public int[] solve(int[] A) {
+        int n = A.length;
+        int Ans [] = new int[2];
+        int Xor = 0;
+        for(int i = 0 ; i < n ; i++){
+            Xor = Xor ^ A[i];
+        }
+        //Finding bitindex
+        int bitindex = 0;
+        for(int i = 0 ; i < 32 ; i++){
+            if(CheckBits(Xor , i)){
+                bitindex = i;
+                break;
+            }
+        }
+        int s0 = 0;
+        int s1 = 0;
+        //Apply divide and conquer
+        for(int i = 0 ; i < n ; i++){
+            if(CheckBits(A[i] , bitindex)){
+                s1 = s1 ^ A[i];
+            }
+            else{
+                s0 = s0 ^ A[i];
+            }
+        }
+        int x = Math.min(s0 , s1);
+        int y = Math.max(s0 , s1);
+        Ans[0] = x;
+        Ans[1] = y;
+
+        return Ans;
+    }
+}
