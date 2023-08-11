@@ -1,0 +1,32 @@
+public class Solution {
+    public int maxArr(int[] A) {
+        int n = A.length;
+
+        //Calculete Array_sum and Array_diff
+        int Array_sum[] = new int[n];
+        int Array_diff[] = new int[n];
+
+        for(int i = 0 ; i < n ; i++) {
+            Array_sum[i] = A[i] + i;
+            Array_diff[i] = A[i] - i;
+        }
+
+        //FInd the max and min from Array_diff and Array_sum
+        int sum_max = Integer.MIN_VALUE;
+        int diff_max = Integer.MIN_VALUE;
+        int sum_min = Integer.MAX_VALUE;
+        int diff_min = Integer.MAX_VALUE;
+
+        for(int i = 0 ; i < n ; i++) {
+            sum_max = Math.max(sum_max , Array_sum[i]);
+            sum_min = Math.min(sum_min , Array_sum[i]);
+
+            diff_max = Math.max(diff_max , Array_diff[i]);
+            diff_min = Math.min(diff_min , Array_diff[i]);
+        }
+
+        //Return answer by finding the max value
+        int AbsoluteDiff = Math.max(sum_max - sum_min , diff_max - diff_min);
+        return AbsoluteDiff;
+    }
+}
