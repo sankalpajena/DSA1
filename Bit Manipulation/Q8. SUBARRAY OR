@@ -1,0 +1,36 @@
+public class Solution {
+    public boolean CheckBits(int n , int pos){
+        return ((n >> pos) & 1 ) == 1;
+    }
+    public int solve(int[] A) {
+        long n = A.length;
+        long Ans = 0;
+        int mod =  1000000007;
+        //Total number of possible subarray
+        long total = (n * (n + 1)) / 2;
+
+        for(int i = 0 ; i < 32 ; i++){
+            long count = total;
+            long prev = 0;
+            for(int j = 0 ; j < n ; j++){
+                //First calculate all the possible number of subarray with 0 and 
+                //Substract that from the total , we are adding first because
+                // to maintain the count of prev
+                if(!CheckBits(A[j] , i)){
+                    count += (prev * (prev + 1)) / 2;
+                    prev++;
+                    count -= (prev * (prev + 1)) / 2;
+                }
+                else{
+                    prev = 0;
+                }
+            }
+            //To get the answer for the particular index bit we have to 
+            //multiply with the index bit
+            Ans += (1 << i) * count ;
+            Ans = Ans % mod;
+        }
+        return (int)Ans;
+
+    }
+}
